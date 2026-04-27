@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Equipment Owner Dashboard</h1>
+<p><a class="btn" href="{% url 'add_equipment' %}">Add Equipment</a></p>
+<section class="card">
+    <h2>My Equipment</h2>
+    <ul>
+        {% for item in my_equipment %}
+            <li>{{ item.name }} - {{ item.region }} ({{ item.get_availability_status_display }})</li>
+        {% empty %}
+            <li>No equipment listed yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+<section class="card">
+    <h2>Booking Requests for My Equipment</h2>
+    <ul>
+        {% for request in booking_requests %}
+            <li>{{ request.equipment.name }} | {{ request.requested_by.username }} | {{ request.start_date }} to {{ request.end_date }} | {{ request.get_status_display }}</li>
+        {% empty %}
+            <li>No booking requests yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

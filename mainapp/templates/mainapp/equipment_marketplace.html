@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h1>Equipment Marketplace</h1>
+    <form method="get" class="filter-row">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search name, description, region">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:'s' %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn">Filter</button>
+    </form>
+</section>
+<div class="grid">
+    {% for item in equipment %}
+    <article class="card">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.category.name }}</p>
+        <p>{{ item.region }}, {{ item.district }}</p>
+        <p>TZS {{ item.daily_price }}/day</p>
+        <p>Status: {{ item.get_availability_status_display }}</p>
+        <a class="btn-secondary" href="{% url 'equipment_detail' item.pk %}">View details</a>
+    </article>
+    {% empty %}
+    <p>No equipment found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

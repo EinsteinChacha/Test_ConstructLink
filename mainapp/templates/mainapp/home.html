@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <h1>Welcome to ConstructLink Tanzania</h1>
+    <p>Find construction equipment, book trusted providers, and grow your business with local partners.</p>
+    <a class="btn" href="{% url 'equipment_marketplace' %}">Browse Equipment</a>
+</section>
+<section>
+    <h2>Latest Equipment</h2>
+    <div class="grid">
+    {% for item in featured_equipment %}
+        <article class="card">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.category.name }} • {{ item.region }}, {{ item.district }}</p>
+            <p>TZS {{ item.daily_price }}/day</p>
+            <a class="btn-secondary" href="{% url 'equipment_detail' item.pk %}">View</a>
+        </article>
+    {% empty %}
+        <p>No equipment yet. Seed sample data or add your first listing.</p>
+    {% endfor %}
+    </div>
+</section>
+{% endblock %}
