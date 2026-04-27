@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Contractor Dashboard</h1>
+<section class="card">
+    <h2>Available Equipment</h2>
+    <ul>
+    {% for eq in available_equipment %}
+        <li><a href="{% url 'equipment_detail' eq.id %}">{{ eq.name }}</a> - TZS {{ eq.daily_price }}/day</li>
+    {% empty %}
+        <li>No equipment currently available.</li>
+    {% endfor %}
+    </ul>
+</section>
+<section class="card">
+    <h2>My Booking Requests</h2>
+    <ul>
+    {% for req in my_requests %}
+        <li>{{ req.equipment.name }} | {{ req.start_date }} to {{ req.end_date }} | {{ req.get_status_display }}</li>
+    {% empty %}
+        <li>No requests submitted yet.</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endblock %}

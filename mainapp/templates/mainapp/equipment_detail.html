@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h1>{{ equipment.name }}</h1>
+    <p><strong>Category:</strong> {{ equipment.category.name }}</p>
+    <p><strong>Location:</strong> {{ equipment.region }}, {{ equipment.district }}</p>
+    <p><strong>Price:</strong> TZS {{ equipment.daily_price }}/day</p>
+    <p><strong>Description:</strong> {{ equipment.description }}</p>
+    <p><strong>Owner:</strong> {{ equipment.owner.username }}</p>
+</section>
+{% if can_book %}
+<section class="card narrow">
+    <h2>Request Booking</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Submit Request</button>
+    </form>
+</section>
+{% endif %}
+{% endblock %}
